@@ -1,3 +1,3 @@
-/** @jsx h */
+// /** @jsx h */
 
-/** @type {import('twind').Configuration} */
+// /** @type {import('twind').Configuration} */
