@@ -1,5 +1,6 @@
-/** @jsx h */
 /** @jsxFrag Fragment */
+
+/** @jsx h */
 import { ComponentChildren, Fragment, h } from "preact";
 import { Head } from "https://deno.land/x/fresh@1.0.0/runtime.ts";
 
@@ -24,8 +25,8 @@ export const Container = ({ children, ...customMeta }: Props) => {
 
 const Seo = ({ ...customMeta }) => {
   const meta = {
-    title: " بحوث عروض برمجة",
-    description: "بحوث عروض برمجة تصميم تصوير مونتاج",
+    title: "测试哈哈",
+    description: "desc",
     type: "website",
     ...customMeta,
   };
@@ -35,12 +36,8 @@ const Seo = ({ ...customMeta }) => {
       <title>{meta.title}</title>
       <meta content={meta.description} name="description" />
       <link rel="icon" href="/favicon.ico" />
-      {/* <script src="https://cdn.tailwindcss.com"></script> */}
       <link href="/output.css" rel="stylesheet" type="text/css" />
 
-      {/*
-    add javascript css what ever you want
-  */}
     </Head>
   );
 };
