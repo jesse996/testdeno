@@ -29,7 +29,7 @@ export const handler: Handlers<BaseResp<BaseListResp<NftResp>> | null> = {
     const host = 'https://fml233.cn:8443/api';
     const hostDev = 'http://localhost:9080/api';
 
-    const resp = await fetch(`${hostDev}/nft/page`, {
+    const resp = await fetch(`${host}/nft/page`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
