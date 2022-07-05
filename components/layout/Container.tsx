@@ -15,7 +15,7 @@ export const Container = ({ children, ...customMeta }: Props) => {
     <>
       {/* <div style={{ minHeight: "100vh" }}> */}
       <Seo {...customMeta} />
-      <div className="container">{children}</div>
+      <div className="container mx-auto py-5">{children}</div>
       {/* </div> */}
       <Footer />
     </>

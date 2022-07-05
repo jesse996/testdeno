@@ -38,9 +38,6 @@ export const handler: Handlers<BaseResp<BaseListResp<NftResp>> | null> = {
     });
 
     const data = await resp.json();
-    console.log(data);
-
-
 
     return ctx.render(data);
   },
@@ -51,16 +48,19 @@ export default function Nft({ data }: PageProps<BaseResp<BaseListResp<NftResp>> 
     return <div>data is null</div>
   }
   return (
-    <Container>
-      <h1>NFT</h1>
-      {/* <div class={tw`flex flex-wrap ju`}> */}
-      <div class={`flex`}>
+    <Container >
+      <div class={`grid grid-cols-2 lg:grid-cols-4 gap-4`}>
 
         {data.result?.records.map(nft => (
-          <div key={nft.tokenId}>
-            <img src={nft.image} width={64} height={64} />
-            <h1>{nft.name}</h1>
-            <p>{nft.nickname}</p>
+          <div key={nft.tokenId} class='rounded-2xl bg-blue-300 overflow-clip' >
+            <img src={nft.image} class='w-full aspect-square' />
+            <div class='p-3'>
+              <div class='pb-2'>{nft.name}</div>
+              <div class='flex items-center '>
+                <img src={nft.avatar} alt="" class='w-10 h-10 rounded-full ' />
+                <p>{nft.nickname}</p>
+              </div>
+            </div>
 
           </div>
         ))}
