@@ -3,6 +3,7 @@ import { h } from "preact";
 import { PageProps, Handlers } from "$fresh/server.ts";
 import { Container } from "../components/layout/Container.tsx";
 
+
 interface BaseResp<T> {
   code: number,
   msg: string,
@@ -26,8 +27,7 @@ interface NftResp {
 
 export const handler: Handlers<BaseResp<BaseListResp<NftResp>> | null> = {
   async GET(_, ctx) {
-    const host = 'https://fml233.cn:8443/api';
-    const hostDev = 'http://localhost:9080/api';
+    const host = Deno.env.get('HOST')
 
     const resp = await fetch(`${host}/nft/page`, {
       method: 'post',
@@ -37,19 +37,9 @@ export const handler: Handlers<BaseResp<BaseListResp<NftResp>> | null> = {
       body: JSON.stringify({ page: 1, size: 10 })
     });
 
-    // const resp = await fetch(`https://api.jingmake.com/nft/allOnList2`, {
-    //   method: 'post',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({ currentPage: 1, pageSize: 20, market: 2, type: 1 })
-    // });
-
     const data = await resp.json();
-    console.log(data.result.records.length);
+    console.log(data);
 
-    // console.log(data.data.records.length);
-    // console.log(data.data.records.length);
 
 
     return ctx.render(data);
