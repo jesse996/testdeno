@@ -1,7 +1,7 @@
 /** @jsxFrag Fragment */
 /** @jsx h */
+import { Head } from "$fresh/runtime.ts";
 import { ComponentChildren, Fragment, h } from "preact";
-import { Head } from "https://deno.land/x/fresh@1.0.0/runtime.ts";
 
 export type Props = {
   children: ComponentChildren;
