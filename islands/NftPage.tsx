@@ -3,25 +3,37 @@
 import { useState, useRef, useEffect } from "preact/hooks";
 import { Fragment, h } from "preact";
 import { NftResp } from "../routes/nft.tsx";
+import _ from 'https://esm.sh/lodash-es@4.17.21/';
 
 export default function NftPage({ initData }: { initData: NftResp[] }) {
   const [list, setList] = useState<NftResp[]>(initData);
+  const [isLoading, setIsLoading] = useState(false);
 
   const listRef = useRef(null);
 
   useScrollToBottomHook(listRef, async () => {
-    console.log('to end');
-    const host = "https://fml233.cn:8443/api"
-    const resp = await fetch(`${host}/nft/page`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ page: list.length / 20 + 1, size: 20 })
-    });
+    if (isLoading) {
+      return
+    }
+    setIsLoading(true)
+    try {
 
-    const data = await resp.json();
-    setList([...list, ...data.result.records]);
+
+      const host = "https://fml233.cn:8443/api"
+      const resp = await fetch(`${host}/nft/page`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ page: list.length / 20 + 1, size: 20 })
+      });
+
+      const data = await resp.json();
+      setList([...list, ...data.result.records]);
+    } catch (e) {
+      console.log(e)
+    }
+    setIsLoading(false)
   })
 
 
@@ -51,17 +63,13 @@ export const useScrollToBottomHook = (
   console.log('useScrollToBottomHook');
 
   useEffect(() => {
-    console.log('use effect start');
-
-    const currentDom = listDomRef.current
-    console.log('currentDom', currentDom);
-
+    const debounced = _.debounce(callback, 250, { leading: true });
     const handleScroll = (e: any) => {
 
       if (
         document.documentElement.scrollHeight - document.documentElement.scrollTop - document.documentElement.clientHeight <= reactionDistance
       ) {
-        callback()
+        debounced()
       }
     }
     window!.addEventListener('scroll', handleScroll)
