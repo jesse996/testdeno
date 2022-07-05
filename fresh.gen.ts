@@ -14,6 +14,7 @@ import * as $8 from "./routes/index.tsx";
 import * as $9 from "./routes/nft.tsx";
 import * as $10 from "./routes/search.tsx";
 import * as $$0 from "./islands/Counter.tsx";
+import * as $$1 from "./islands/NftPage.tsx";
 
 const manifest = {
   routes: {
@@ -31,6 +32,7 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $$0,
+    "./islands/NftPage.tsx": $$1,
   },
   baseUrl: import.meta.url,
 };

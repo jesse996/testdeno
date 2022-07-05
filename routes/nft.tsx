@@ -1,7 +1,10 @@
 /** @jsx h */
 import { h } from "preact";
+import { useState, useEffect, useRef } from "preact/hooks";
+
 import { PageProps, Handlers } from "$fresh/server.ts";
 import { Container } from "../components/layout/Container.tsx";
+import NftPage from "../islands/NftPage.tsx";
 
 
 interface BaseResp<T> {
@@ -15,7 +18,7 @@ interface BaseListResp<T> {
   records: T[]
 }
 
-interface NftResp {
+export interface NftResp {
   nftClassId: 0,
   userId: 0,
   image: string,
@@ -34,7 +37,7 @@ export const handler: Handlers<BaseResp<BaseListResp<NftResp>> | null> = {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ page: 1, size: 10 })
+      body: JSON.stringify({ page: 1, size: 20 })
     });
 
     const data = await resp.json();
@@ -47,26 +50,8 @@ export default function Nft({ data }: PageProps<BaseResp<BaseListResp<NftResp>> 
   if (!data) {
     return <div>data is null</div>
   }
-  return (
-    <Container >
-      <div class={`grid grid-cols-2 lg:grid-cols-4 gap-4`}>
-
-        {data.result?.records.map(nft => (
-          <div key={nft.tokenId} class='rounded-2xl bg-blue-300 overflow-clip' >
-            <img src={nft.image} class='w-full aspect-square' />
-            <div class='p-3'>
-              <div class='pb-2'>{nft.name}</div>
-              <div class='flex items-center '>
-                <img src={nft.avatar} alt="" class='w-10 h-10 rounded-full ' />
-                <p>{nft.nickname}</p>
-              </div>
-            </div>
-
-          </div>
-        ))}
-      </div>
-
-    </Container>
-  )
+  return <Container>
+    <NftPage initData={data.result?.records || []}></NftPage>
+  </Container>
 
 }
