@@ -11,7 +11,7 @@ export default function NftPage({ initData }: { initData: NftResp[] }) {
 
   useScrollToBottomHook(listRef, async () => {
     console.log('to end');
-    const host = "http://localhost:9080/api"
+    const host = "https://fml233.cn:8443/api"
     const resp = await fetch(`${host}/nft/page`, {
       method: 'post',
       headers: {

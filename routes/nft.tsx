@@ -30,7 +30,7 @@ export interface NftResp {
 
 export const handler: Handlers<BaseResp<BaseListResp<NftResp>> | null> = {
   async GET(_, ctx) {
-    const host = 'https://fml233.cn:8443/api'
+    const host = Deno.env.get('HOST')
 
     const resp = await fetch(`${host}/nft/page`, {
       method: 'post',
